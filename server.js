@@ -3,9 +3,24 @@ const fs = require("fs");
 const port = 3010;
 
 const server = http.createServer((req, res) => {
-  // res.setHeader("Content-Type", "text/plain");
+  let filename;
+  switch (req.url) {
+    case "/":
+      filename = "home.html";
+      break;
+    case "/about":
+      filename = "about.html";
+      break;
+    case "/contact":
+      filename = "contact.html";
+      break;
+    default:
+      filename = "404.html";
+      break;
+  }
+
   res.setHeader("Content-Type", "text/html");
-  fs.readFile("./views/index.html", (err, data) => {
+  fs.readFile(`./views/` + filename, (err, data) => {
     if (err) {
       console.log(err);
       res.end();
