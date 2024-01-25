@@ -7,7 +7,15 @@ app.set("view engine", "ejs");
 //controller function
 
 app.get("/", (req, res) => {
-  res.render("home");
+  const blogs = [
+    { title: "blog title 1", intro: "this is blog 1 intro" },
+    { title: "blog title 2", intro: "this is blog 2 intro" },
+    { title: "blog title 3", intro: "this is blog 3 intro" },
+  ];
+
+  res.render("home", {
+    blogs,
+  });
 });
 
 app.get("/about", (req, res) => {
