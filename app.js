@@ -1,30 +1,26 @@
 const express = require("express");
-// import express from "express";
 const app = express();
 const port = 3000;
+app.set("views", "./views");
+app.set("view engine", "ejs");
 
-//must set path or route in order cuz it is sync ကွက်ကျော်ပြီးထားရင် အောက်ကဟာကိုမကြည့်ပေးတော့ဘူး
+//controller function
 
 app.get("/", (req, res) => {
-  res.sendFile("/views/home.html", { root: __dirname });
+  res.render("home");
 });
 
 app.get("/about", (req, res) => {
-  // res.send("<h1>about</h1> ");
-  res.sendFile("/views/about.html", { root: __dirname });
+  res.render("about");
 });
 
 app.get("/contact", (req, res) => {
-  res.sendFile("./views/contact.html", { root: __dirname });
-});
-
-app.get("/contact-us", (req, res) => {
-  res.redirect("/contact");
+  res.render("contact");
 });
 
 app.use((req, res) => {
-  res.status(404);
-  res.sendFile("./views/404.html", { root: __dirname });
+  res.status(404).render("404");
+  r;
 });
 
 app.listen(port);
