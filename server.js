@@ -1,6 +1,9 @@
 const http = require("http");
 const fs = require("fs");
+const _ = require("lodash");
 const port = 3010;
+
+console.log(_.random(20));
 
 const server = http.createServer((req, res) => {
   let filename;
@@ -11,6 +14,7 @@ const server = http.createServer((req, res) => {
       break;
     case "/about":
       filename = "about.html";
+
       res.statusCode = 200;
       break;
     case "/contact":
