@@ -1,22 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-
-  <!-- <% const names = "david" %> -->
+  <%- include("./components/head.ejs") %>
   <body>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
-    </nav>
-    <h1>Hello Node Js</h1>
-    <p>This is HTML Page</p>
-
-    <% if(blogs.length){ %> <% blogs.map(blog => {%>
+    <%- include("./components/navbar.ejs") %> <% if(blogs.length){ %> <%
+    blogs.map(blog => {%>
     <h1><%= blog.title %></h1>
     <p><%= blog.intro %></p>
     <% }) %> <% } else {%>
