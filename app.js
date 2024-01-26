@@ -5,16 +5,7 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 const morgan = require("morgan");
 app.use(morgan("dev"));
-
-//custom middleware
-// let logger = (env) => {
-//   return (req, res, next) => {
-//     if (env === "dev") console.log(`${req.method}: ${req.originalUrl} --`);
-//     next();
-//   };
-// };
-
-// app.use(logger("dev"));
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   const blogs = [
