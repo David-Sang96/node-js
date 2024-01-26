@@ -24,7 +24,9 @@ const morgan = require("morgan");
 app.use(morgan("dev"));
 app.use(express.static("public"));
 const Blog = require("./models/Blog");
+app.use(express.urlencoded({ extended: true }));
 
+//create
 app.get("/add-blog", async (req, res) => {
   const blog = new Blog({
     title: "blog title 3",
@@ -35,17 +37,31 @@ app.get("/add-blog", async (req, res) => {
   res.send("blog saved");
 });
 
+//get single data
 app.get("/single-blog", async (req, res) => {
   const blog = await Blog.findById("65b392a9241d7e8dc627b884");
   res.json(blog);
 });
 
+//get all data and sort in order
 app.get("/", async (req, res) => {
   const blogs = await Blog.find().sort({ createdAt: -1 });
   res.render("home", {
     blogs,
     title: "Home",
   });
+});
+
+//create blog
+app.post("/blogs", async (req, res) => {
+  const { title, intro, body } = req.body;
+  const blog = new Blog({
+    title,
+    intro,
+    body,
+  });
+  await blog.save();
+  res.redirect("/");
 });
 
 app.get("/about", (req, res) => {
