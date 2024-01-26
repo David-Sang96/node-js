@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const expressLayouts = require("express-ejs-layouts");
 //db url
 const mongoUrl =
   "mongodb+srv://davidsang:david1234@cluster0.icwxdkm.mongodb.net/?retryWrites=true&w=majority";
@@ -8,9 +9,7 @@ mongoose
   .connect(mongoUrl)
   .then(() => {
     console.log("connected to db");
-    app.listen(port, () => {
-      console.log("server is running now");
-    });
+    app.listen(port);
   })
   .catch((err) => {
     console.log(err);
@@ -19,6 +18,8 @@ mongoose
 const port = 3000;
 app.set("views", "./views");
 app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "layouts/default");
 const morgan = require("morgan");
 app.use(morgan("dev"));
 app.use(express.static("public"));
@@ -41,7 +42,6 @@ app.get("/single-blog", async (req, res) => {
 
 app.get("/", async (req, res) => {
   const blogs = await Blog.find().sort({ createdAt: -1 });
-
   res.render("home", {
     blogs,
     title: "Home",
@@ -54,6 +54,10 @@ app.get("/about", (req, res) => {
 
 app.get("/contact", (req, res) => {
   res.render("contact", { title: "contact" });
+});
+
+app.get("/blogs/create", (req, res) => {
+  res.render("blogs/create", { title: "Blog create" });
 });
 
 app.use((req, res) => {
