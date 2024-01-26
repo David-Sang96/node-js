@@ -26,19 +26,21 @@ const Blog = require("./models/Blog");
 
 app.get("/add-blog", async (req, res) => {
   const blog = new Blog({
-    title: "blog title 2",
-    intro: "blog intro 2",
-    body: "blog body 2",
+    title: "blog title 3",
+    intro: "blog intro 3",
+    body: "blog body 3",
   });
   await blog.save();
   res.send("blog saved");
 });
 
-app.get("/", (req, res) => {
-  const blogs = [
-    { title: "blog title 1", intro: "this is blog 1 intro" },
-    { title: "blog title 2", intro: "this is blog 2 intro" },
-  ];
+app.get("/single-blog", async (req, res) => {
+  const blog = await Blog.findById("65b392a9241d7e8dc627b884");
+  res.json(blog);
+});
+
+app.get("/", async (req, res) => {
+  const blogs = await Blog.find().sort({ createdAt: -1 });
 
   res.render("home", {
     blogs,
