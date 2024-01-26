@@ -4,7 +4,10 @@ const port = 3000;
 app.set("views", "./views");
 app.set("view engine", "ejs");
 
-//controller function
+app.use((req, res, next) => {
+  console.log("first middleware function is running");
+  next();
+});
 
 app.get("/", (req, res) => {
   const blogs = [
@@ -21,6 +24,11 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "about us" });
+});
+
+app.use((req, res, next) => {
+  console.log("second middleware function is running");
+  next();
 });
 
 app.get("/contact", (req, res) => {
