@@ -3,11 +3,18 @@ const app = express();
 const port = 3000;
 app.set("views", "./views");
 app.set("view engine", "ejs");
+const morgan = require("morgan");
+app.use(morgan("dev"));
 
-app.use((req, res, next) => {
-  console.log("first middleware function is running");
-  next();
-});
+//custom middleware
+// let logger = (env) => {
+//   return (req, res, next) => {
+//     if (env === "dev") console.log(`${req.method}: ${req.originalUrl} --`);
+//     next();
+//   };
+// };
+
+// app.use(logger("dev"));
 
 app.get("/", (req, res) => {
   const blogs = [
@@ -24,11 +31,6 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "about us" });
-});
-
-app.use((req, res, next) => {
-  console.log("second middleware function is running");
-  next();
 });
 
 app.get("/contact", (req, res) => {
