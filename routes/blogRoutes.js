@@ -8,8 +8,8 @@ router.post("", BlogController.create);
 
 router.get("/create", BlogController.createForm);
 
-router.post("/:id/delete", BlogController.delete);
-
 router.get("/:id", BlogController.details);
+
+router.post("/:id/delete", BlogController.delete);
 
 module.exports = router;

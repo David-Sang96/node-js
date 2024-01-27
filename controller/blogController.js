@@ -39,9 +39,9 @@ const BlogController = {
     try {
       const id = req.params.id;
       const blog = await Blog.findById(id);
-      res.render("blogs/show", {
+      res.render("blogs/details", {
         blog,
-        title: "Blog Detail",
+        title: "Blog Details",
       });
     } catch (e) {
       console.log(e);

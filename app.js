@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
+const port = 3000;
 const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
-//db url
+const morgan = require("morgan");
+const blogRoutes = require("./routes/blogRoutes");
 const mongoUrl =
   "mongodb+srv://davidsang:david1234@cluster0.icwxdkm.mongodb.net/?retryWrites=true&w=majority";
 mongoose
@@ -14,18 +16,13 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-const port = 3000;
 app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "layouts/default");
-const morgan = require("morgan");
 app.use(morgan("dev"));
 app.use(express.static("public"));
-const Blog = require("./models/Blog");
 app.use(express.urlencoded({ extended: true }));
-const blogRoutes = require("./routes/blogRoutes");
 
 app.get("/", async (req, res) => {
   res.redirect("/blogs");
