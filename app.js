@@ -37,16 +37,6 @@ app.get("/add-blog", async (req, res) => {
   res.send("blog saved");
 });
 
-//get single data
-app.get("/blogs/:id", async (req, res) => {
-  const id = req.params.id;
-  const blog = await Blog.findById(id);
-  res.render("blogs/show", {
-    blog,
-    title: "Blog Detail",
-  });
-});
-
 //get all data and sort in order
 app.get("/", async (req, res) => {
   const blogs = await Blog.find().sort({ createdAt: -1 });
@@ -78,6 +68,31 @@ app.get("/contact", (req, res) => {
 
 app.get("/blogs/create", (req, res) => {
   res.render("blogs/create", { title: "Blog create" });
+});
+
+app.post("/blogs/:id/delete", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    await Blog.findByIdAndDelete(id);
+    res.redirect("/");
+  } catch (e) {
+    console.log(e);
+    next();
+  }
+});
+
+app.get("/blogs/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const blog = await Blog.findById(id);
+    res.render("blogs/show", {
+      blog,
+      title: "Blog Detail",
+    });
+  } catch (e) {
+    console.log(e);
+    next();
+  }
 });
 
 app.use((req, res) => {

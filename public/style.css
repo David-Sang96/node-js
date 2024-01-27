@@ -71,3 +71,13 @@ nav a:hover {
   color: white;
   cursor: pointer;
 }
+.delete-btn {
+  background-color: red;
+  padding: 7px 10px;
+  font-size: 12px;
+  border-radius: 20px;
+  border: 1px solid red;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
