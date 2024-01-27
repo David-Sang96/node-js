@@ -38,9 +38,13 @@ app.get("/add-blog", async (req, res) => {
 });
 
 //get single data
-app.get("/single-blog", async (req, res) => {
-  const blog = await Blog.findById("65b392a9241d7e8dc627b884");
-  res.json(blog);
+app.get("/blogs/:id", async (req, res) => {
+  const id = req.params.id;
+  const blog = await Blog.findById(id);
+  res.render("blogs/show", {
+    blog,
+    title: "Blog Detail",
+  });
 });
 
 //get all data and sort in order

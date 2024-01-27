@@ -32,6 +32,9 @@ nav a:hover {
 .card {
   margin: 20px 0;
 }
+.card a {
+  text-decoration: none;
+}
 
 .blog-form {
   max-width: 800px;
